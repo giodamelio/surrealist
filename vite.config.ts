@@ -58,7 +58,7 @@ export default defineConfig(({ mode }) => {
 		console.log("Compressing assets...");
 		plugins.push(
 			compression({
-				deleteOriginalAssets: true,
+				deleteOriginalAssets: false,
 				threshold: isDocker ? 100 : undefined,
 				filename: isDocker ? undefined : (id) => id,
 				include: isDocker
