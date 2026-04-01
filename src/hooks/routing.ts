@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { matchRoute, PathPattern, useRouter, useSearch } from "wouter";
+import { matchRoute, PathPattern, useLocation, useRouter, useSearch } from "wouter";
 import { adapter } from "~/adapter";
 import { MiniAdapter } from "~/adapter/mini";
 import { SANDBOX } from "~/constants";
@@ -14,9 +14,7 @@ import { useStable } from "./stable";
  * Returns the current location and a function to navigate
  */
 export function useAbsoluteLocation() {
-	const router = useRouter();
-
-	return router.hook(router);
+	return useLocation();
 }
 
 /**

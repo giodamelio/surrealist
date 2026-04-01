@@ -2,6 +2,7 @@
   lib,
   stdenv,
   bun2nix,
+  basePath ? "/",
   ...
 }:
 stdenv.mkDerivation {
@@ -40,6 +41,7 @@ stdenv.mkDerivation {
   buildPhase = ''
     export HOME=$TMPDIR
     export VITE_SURREALIST_DOCKER=true
+    export VITE_BASE_PATH="${basePath}"
     bun run build
   '';
 

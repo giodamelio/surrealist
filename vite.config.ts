@@ -71,6 +71,7 @@ export default defineConfig(({ mode }) => {
 	}
 
 	return {
+		base: process.env.VITE_BASE_PATH || "/",
 		plugins,
 		clearScreen: false,
 		envPrefix: ["VITE_", "TAURI_"],
@@ -111,9 +112,19 @@ export default defineConfig(({ mode }) => {
 			},
 		},
 		resolve: {
-			alias: {
-				"~": fileURLToPath(new URL("src", import.meta.url)),
-			},
+			alias: [
+				{ find: "~", replacement: fileURLToPath(new URL("src", import.meta.url)) },
+				{
+					find: "wouter/use-browser-location",
+					replacement: fileURLToPath(
+						new URL("src/shims/use-browser-location.ts", import.meta.url),
+					),
+					customResolver(_, importer) {
+						// Don't apply the alias inside the shim itself to avoid circular resolution
+						return importer?.includes("src/shims/use-browser-location") ? false : undefined;
+					},
+				},
+			],
 		},
 		css: {
 			modules: {

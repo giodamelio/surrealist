@@ -1,3 +1,4 @@
+import { Router } from "wouter";
 import { isDesktop } from "~/adapter";
 import { DesignerProvider } from "~/providers/Designer";
 import { InspectorProvider } from "~/providers/Inspector";
@@ -26,6 +27,9 @@ import { TableCreatorModal } from "./modals/table";
 import { UpdaterDialog } from "./modals/updater";
 import { Settings } from "./settings";
 
+// Wouter expects base without trailing slash (e.g. "" or "/surrealist")
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function Surrealist() {
 	return (
 		<InspectorProvider>
@@ -38,34 +42,36 @@ function Surrealist() {
 
 export function App() {
 	return (
-		<Scaffold>
-			<Globals />
+		<Router base={BASE}>
+			<Scaffold>
+				<Globals />
 
-			<Surrealist />
+				<Surrealist />
 
-			<Settings />
+				<Settings />
 
-			<ConnectionsModal />
-			<CommandPaletteModal />
-			<DocumentationModal />
-			<HelpSearchModal />
-			<ChangelogModal />
-			<SandboxModal />
-			<AccessSignupModal />
-			<TableCreatorModal />
-			<HighlightToolModal />
-			<DataExportModal />
-			<DataImportModal />
-			<RegisterUserModal />
-			<ConsoleDrawer />
-			<NewsFeedDrawer />
-			<SidekickDrawer />
-			<CreateMessageModal />
-			<CloudExpiredDialog />
-			<CloudUpdateRequiredDialog />
-			<FailedConnectDialog />
+				<ConnectionsModal />
+				<CommandPaletteModal />
+				<DocumentationModal />
+				<HelpSearchModal />
+				<ChangelogModal />
+				<SandboxModal />
+				<AccessSignupModal />
+				<TableCreatorModal />
+				<HighlightToolModal />
+				<DataExportModal />
+				<DataImportModal />
+				<RegisterUserModal />
+				<ConsoleDrawer />
+				<NewsFeedDrawer />
+				<SidekickDrawer />
+				<CreateMessageModal />
+				<CloudExpiredDialog />
+				<CloudUpdateRequiredDialog />
+				<FailedConnectDialog />
 
-			{isDesktop && <UpdaterDialog />}
-		</Scaffold>
+				{isDesktop && <UpdaterDialog />}
+			</Scaffold>
+		</Router>
 	);
 }

@@ -16,9 +16,9 @@ export function getActiveConnection() {
 		return SANDBOX;
 	}
 
-	const parts = location.pathname.split("/");
-
-	parts.shift();
+	const base = new URL(import.meta.env.BASE_URL, location.href).pathname;
+	const appPath = location.pathname.slice(base.length);
+	const parts = appPath.split("/");
 
 	if (parts[0] === "c") {
 		return parts[1];
